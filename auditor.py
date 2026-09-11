@@ -6,17 +6,15 @@ while True:
     if Stock.lower() == 'quit':
         break
     
-    if not Stock.isdigit():
-        print("Invalid input. Please enter a valid number.")
+    elif not Stock.isdigit():
+        print("Invalid input. Please enter a valid number." )
         Rejected += 1
         print(f"Rejected entries: {Rejected}")
-        continue
     
-    if int(Stock) < 0:
+    elif int(Stock) < 0:
         print("Invalid input. Please enter a non-negative number.")
         Rejected += 1
         print(f"Rejected entries: {Rejected}")
-        continue
 
     Inventory += int(Stock)
     print(f"Current inventory: {Inventory}")
