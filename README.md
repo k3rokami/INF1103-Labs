@@ -1,4 +1,4 @@
-# Docker Cheatsheet - INF1103 Lab 2
+# Docker Cheatsheet - INF1103
 
 ## Docker Setup & Verification
 
@@ -121,15 +121,3 @@ CMD ["python", "auditor.py"]          # Run command
 | `git log > log.txt` | Creates text file with all commit history |
 
 ---
-
-## Submission Requirements
-
-| Item | File/Evidence |
-|------|------|
-| Python script | `auditor.py` |
-| Docker setup | Screenshot of `docker images` output |
-| Container execution | Screenshot showing program running |
-| Git history | `log.txt` (from `git log > log.txt`) |
-| GitHub link | URL to remote repository with commit history |
-| Volume mount test | Screenshot of successful Docker mount & run |
-| Image build proof | Screenshot of `docker build` success message |
