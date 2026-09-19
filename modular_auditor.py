@@ -1,51 +1,60 @@
-Inventory = 0
-Rejected = 0
+inventory = 0
+deliveries_processed = 0
+rejected_entries = 0
 
 def get_valid_input():
+    global rejected_entries
     while True:
-        user_input = input("Enter the stock item (type 'quit' to exit): ")
-        if user_input.lower() == 'quit':
-            return None
-        elif not user_input.isdigit() or int(user_input) < 0:
-            global Rejected
-            print("Invalid input. Please enter a valid number.")
-            Rejected += 1
-            print(f"Rejected entries: {Rejected}")
+        stock = input("Enter the stock quantity (type 'quit' to exit): ").strip()
+
+        if stock.lower() == "quit":
+            return "quit"
+        
+        if not stock.isdigit() or int(stock) < 0:
+                print("Invalid input. Please enter a non-negative whole number.")
+                rejected_entries += 1
+                
         else:
-            global Inventory
-            Inventory += int(user_input)
-            return Inventory
+            return int(stock)
+                
+        # try:
+        #     value = int(stock)
+        #     if value < 0:
+        #         raise ValueError
+        #     return value
+        # except ValueError:
+        #     audit_state["failed_attempts"] += 1
+        #     print("Invalid input. Please enter a non-negative whole number.")
 
-# def process_delivery(current_total, new_value):
+
+def process_delivery(current_total, new_value):
+    return current_total + new_value
 
 
-# def caculate_tax(amount):
-#     return amount * 0.10
+def calculate_tax(amount):
+    return amount * 0.10
 
-# def generate_report(total_unit,failed_atempts):
 
-    
+def generate_report(total_units, failed_attempts):
+    print(f"Total Deliveries Processed: {total_units}")
+    print(f"Number of Failed/Rejected Entries: {failed_attempts}")
+
 
 while True:
-    get_valid_input()
-    print(Inventory)
-    # Stock = input("Enter the stock item (type 'quit' to exit): ")
-        
-    # if Stock.lower() == 'quit':
-    #     break
+    delivery = get_valid_input()
+
+    if delivery == "quit":
+        break
     
-    # if not Stock.isdigit() or int(Stock) < 0:
-    #     print("Invalid input. Please enter a valid number.")
-    #     Rejected += 1
-    #     print(f"Rejected entries: {Rejected}")
-    # else:
-    #     Inventory += int(Stock)
-        
-    # print(f"Current inventory: {Inventory}")
+    inventory = process_delivery(inventory, delivery)
     
-    # if Inventory > 500:
-    #     print("Inventory limit exceeded!")
-    #     break
+    if inventory > 500:
+        print("Inventory limit exceeded!")
+        break
     
-# print(f"Current inventory: {Inventory}")
-# print(f"Rejected entries: {Rejected}")
+    tax = calculate_tax(delivery)
+    deliveries_processed += 1
+    print(f"Delivery tax: {tax:.2f}")
+    print(f"Current inventory: {inventory}")
+
+generate_report(deliveries_processed, rejected_entries)
