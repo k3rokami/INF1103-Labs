@@ -1,32 +1,39 @@
 inventory = 0
 deliveries_processed = 0
 rejected_entries = 0
+order_id = 1000
+items = []
 
 def load_inventory():
+    global items, order_id
     print("Current Orders:")
     try:
         with open("inventory.txt", "r") as file:
-            item = file.read()
-            print(f"AHHHHHH  {item[0][2]}")
-            if item:
-                print(item)
+            for line in file:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = [p.strip() for p in line.split(",") if p.strip() != ""]
+                for i in range(0, len(parts), 3):
+                    if i + 2 >= len(parts):
+                        break
+                    order_id = int(parts[i])
+                    name = parts[i + 1]
+                    qty = int(parts[i + 2])
+                    items.append([order_id, name, qty])
+                    print(f"{order_id}, {name}, {qty}")
+                    order_id += qty
     except FileNotFoundError:
-        with open("inventory.txt", "a") as file:
-            pass 
-    
-def save_inventory(inventory, product_name, quantity):
-    store_inventory = []
-    store_inventory.append(inventory)
-    store_inventory.append(product_name)
-    store_inventory.append(quantity)
+        with open("inventory.txt", "w") as file:
+            pass
+        
+def save_inventory(order_id, product_name, quantity):
+    items.append([order_id, product_name, quantity])
     with open("inventory.txt", "a") as file:
-        file.write(f"{inventory}, {product_name}, {quantity}\n")
-    print("Order successfully saved to orders.txt")
-    return (store_inventory)
+        file.write(f"{order_id},{product_name},{quantity},")
 
 def get_valid_input():
-    global rejected_entries
-    global stock
+    global rejected_entries,stock
     while True:
         stock = input("Enter the stock quantity (type 'quit' to exit): ").strip()
 
@@ -51,9 +58,6 @@ def get_valid_input():
 
 
 def process_delivery(current_total, new_value):
-    with open("inventory.txt", "r") as file:
-        item = file.read()
-        current_total = item[0]
     return current_total + new_value
 
 
@@ -76,7 +80,7 @@ if __name__ == "__main__":
             break
         
         inventory = process_delivery(inventory, delivery)
-        
+
         if inventory > 500:
             print("Inventory limit exceeded!")
             break
@@ -84,7 +88,8 @@ if __name__ == "__main__":
         tax = calculate_tax(delivery)
         deliveries_processed += 1
         product_name = str(input("Enter Product Name: "))
-        save_inventory(inventory,product_name,stock)
+        order_id += 1
+        save_inventory(order_id,product_name,stock)
         print(f"Delivery tax: {tax:.2f}")
         print(f"Current inventory: {inventory}")
 
