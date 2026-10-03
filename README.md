@@ -61,6 +61,55 @@ CMD ["python", "auditor.py"]
 
 ---
 
+## Data Persistence with Docker Volumes
+
+The application saves its data to `data/inventory.json`. Containers are temporary, so without a volume this file is lost when the container is removed. A volume mount keeps the file on the host machine.
+
+### Dockerfile
+
+```dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY persistent_auditor.py .
+RUN mkdir -p /app/data
+VOLUME /app/data
+CMD ["python", "persistent_auditor.py"]
+```
+
+- `RUN mkdir -p /app/data` creates the data folder inside the image.
+- `VOLUME /app/data` marks it as the mount point for persistent data.
+
+### Build the image
+
+```bash
+docker build -t inf1003-labs-smart-auditor .
+```
+
+### Run with a volume mount
+
+**Windows (PowerShell) / Linux / macOS**
+
+```bash
+docker run --rm -it -v ${PWD}/data:/app/data inf1003-labs-smart-auditor
+```
+
+On Linux/macOS you can also use `$(pwd)/data` instead of `${PWD}/data`.
+
+| Flag | Description |
+|------|-------------|
+| `--rm` | Remove the container after it exits |
+| `-it` | Interactive terminal (needed for menu input) |
+| `-v ${PWD}/data:/app/data` | Map the local `data` folder to `/app/data` in the container |
+
+### Verify persistence
+
+1. Run the container, add a product, then choose **Save** or **Exit**.
+2. Check that `data/inventory.json` now exists on your local machine.
+3. Run the same `docker run` command again.
+4. Confirm the product you added is still listed.
+
+---
+
 ## Git Commands for Version Control
 
 | Command | Purpose | Example |

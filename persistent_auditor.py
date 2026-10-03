@@ -7,21 +7,20 @@ import json
 # items = []
 
 def load_inventory():
-    """Load inventory.json if it exists, otherwise create it."""
     try:
-        with open("inventory.json", "r") as f:
+        with open("data/inventory.json", "r") as f:
             data = json.load(f)
             if isinstance(data, list):
                 return data
             return []
     except FileNotFoundError:
         inventory = []
-        save_inventory(inventory)  # creates inventory.json
+        save_inventory(inventory)  # creates data/inventory.json
         return []
     
 def save_inventory(inventory):
     # items.append([order_id, product_name, quantity])
-    with open("inventory.json", "w") as file:
+    with open("data/inventory.json", "w") as file:
         json.dump(inventory, file, indent=4)
     print("Inventory saved.")
         # file.write(f"{order_id},{product_name},{quantity},")
@@ -179,7 +178,7 @@ def menu():
         elif option == "5":
             print("Saving inventory...")
             save_inventory(inventory)
-            print("Inventory saved successfully to inventory.json")
+            print("Inventory saved successfully to data/inventory.json")
         elif option == "6":
             print("Saving inventory before exit...")
             save_inventory(inventory)
