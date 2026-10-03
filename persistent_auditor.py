@@ -56,7 +56,7 @@ def search_product(inventory, product_id):
     print("-" * 50)
     print(f"ID: {product['id']}")
     print(f"Name: {product['name']}")
-    print(f"Price: ${product['price']:.2f}")
+    print(f"Price: ${product['price']}")
     print(f"Stock: {product['stock']}")
     print("-" * 50)
     
@@ -66,7 +66,7 @@ def display_all(inventory):
     if not inventory:
         print("Inventory is empty.")
     for items in inventory:
-        print(f"ID: {items['id']} | Name: {items['name']} | Price: {items['price']:.2f} | Stock: {items['stock']}")
+        print(f"ID: {items['id']} | Name: {items['name']} | Price: {items['price']} | Stock: {items['stock']}")
     print("-" * 48)
 
 # def old_load_inventory():
