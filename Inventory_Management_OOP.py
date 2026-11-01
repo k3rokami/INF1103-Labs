@@ -140,8 +140,10 @@ def main_menu():
         inventory.add_product(Product("P002", "Mouse", 25.50, 40))
         inventory.add_product(Product("P003", "Keyboard", 45.00, 25))
     
+    menu()
+    
     while True:
-        menu()
+        
         option = input("Enter option: ")
         
         if option == "1":
