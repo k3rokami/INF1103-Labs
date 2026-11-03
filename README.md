@@ -49,13 +49,13 @@ CMD ["python", "auditor.py"]
 
 | Task | Command | Explanation |
 |------|---------|-------------|
-| Build image | `docker build -t inf1003-labs-smart-auditor .` | Compile Dockerfile into reusable image |
-| Run image | `docker run --rm -it inf1003-labs-smart-auditor` | Execute container with interactive terminal |
+| Build image | `docker build -t inf1103-labs-smart-auditor .` | Compile Dockerfile into reusable image |
+| Run image | `docker run --rm -it inf1103-labs-smart-auditor` | Execute container with interactive terminal |
 | View built images | `docker images` | Confirm image was successfully built |
 
 **What Each Part Means:**
 - `docker build` - Read Dockerfile and compile
-- `-t inf1003-labs-smart-auditor` - Tag name for your image
+- `-t inf1103-labs-smart-auditor` - Tag name for your image
 - `.` - Look for Dockerfile in current directory
 - `-rm -it` - Remove container after exit, keep input open for interaction
 
@@ -82,7 +82,7 @@ CMD ["python", "persistent_auditor.py"]
 ### Build the image
 
 ```bash
-docker build -t inf1003-labs-smart-auditor .
+docker build -t inf1103-labs-smart-auditor .
 ```
 
 ### Run with a volume mount
@@ -90,7 +90,7 @@ docker build -t inf1003-labs-smart-auditor .
 **Windows (PowerShell) / Linux / macOS**
 
 ```bash
-docker run --rm -it -v ${PWD}/data:/app/data inf1003-labs-smart-auditor
+docker run --rm -it -v ${PWD}/data:/app/data inf1103-labs-smart-auditor
 ```
 
 On Linux/macOS you can also use `$(pwd)/data` instead of `${PWD}/data`.
@@ -135,8 +135,8 @@ On Linux/macOS you can also use `$(pwd)/data` instead of `${PWD}/data`.
 | 4. First commit | `git add . && git commit -m "Initial auditor"` | Save starting point |
 | 5. Link to GitHub | `git remote add origin <url>` | Connect to remote |
 | 6. Create Dockerfile | Create `Dockerfile` (no extension) | Package application |
-| 7. Build image | `docker build -t inf1003-labs-smart-auditor .` | Compile container image |
-| 8. Run container | `docker run -rm -it inf1003-labs-smart-auditor` | Execute application |
+| 7. Build image | `docker build -t inf1103-labs-smart-auditor .` | Compile container image |
+| 8. Run container | `docker run -rm -it inf1103-labs-smart-auditor` | Execute application |
 | 9. Push to GitHub | `git push` | Upload to repository |
 | 10. Export logs | `git log > log.txt` | Prepare submission |
 
@@ -165,7 +165,7 @@ CMD ["python", "auditor.py"]          # Run command
 | Action | Expected Result |
 |--------|-----------------|
 | `docker build` output | Shows layers being built, ends with "naming to docker.io/library/..." |
-| `docker images` | Shows your image in the list with tag `inf1003-labs-smart-auditor:latest` |
+| `docker images` | Shows your image in the list with tag `inf1103-labs-smart-auditor:latest` |
 | `docker run` execution | Shows program accepting input and displaying results |
 | `git log > log.txt` | Creates text file with all commit history |
 
