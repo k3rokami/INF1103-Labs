@@ -6,8 +6,8 @@ class Product:
         self.__stock = stock
     
     def get_product_id(self):
-        return self.__product_id
-    
+            return self.__product_id
+        
     def get_name(self):
         return self.__name
 
@@ -17,13 +17,23 @@ class Product:
     def get_stock(self):
         return self.__stock
     
-    def update_stock(self, new_stock):
-        if new_stock < 0:
-            print("Stock cannot be negative. Update cancelled.")
-            return False
-        self.__stock = new_stock
-        return True
-
+    def update_stock(self, quantity):
+        self.__stock = quantity
+        
     def display_information(self):
-        print(f"ID: {self.__product_id} | Name: {self.__name} | "
-              f"Price: ${self.__price} | Stock: {self.__stock}")
+        print("="*50)
+        print(f"ID: {self.__product_id}")
+        print(f"Name: {self.__name}")
+        print(f"Price: {self.__price}")
+        print(f"Stock: {self.__stock}")
+        print("="*50)
+    
+    # def update_stock(self, inventory, product_id, new_stock):
+    #     product = find_product(inventory, product_id)
+    #     if product == None:
+    #         print("Product is not found.")
+    #         return
+    #     product['stock'] = new_stock
+    #     print("Product stock updated successfully.")
+    
+    
