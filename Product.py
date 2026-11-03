@@ -21,12 +21,12 @@ class Product:
         self.__stock = quantity
         
     def display_information(self):
-        print("="*50)
+        # print("="*50)
         print(f"ID: {self.__product_id}")
         print(f"Name: {self.__name}")
         print(f"Price: {self.__price}")
         print(f"Stock: {self.__stock}")
-        print("="*50)
+        # print("="*50)
     
     # def update_stock(self, inventory, product_id, new_stock):
     #     product = find_product(inventory, product_id)
