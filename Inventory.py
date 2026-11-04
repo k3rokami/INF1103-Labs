@@ -15,7 +15,7 @@ class Inventory():
         for existing_product in self.__products:
             if existing_product.get_product_id() == product.get_product_id():
                 print("Product ID already exists.")
-                return
+                return None
         self.__products.append(product)
 
     def search_product(self, product_id):

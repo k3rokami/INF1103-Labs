@@ -100,10 +100,12 @@ def menu():
                 if product_info == "D":
                     download_size = float(input("Enter download size (MB): "))
                     product = DigitalProduct(download_size, product_id, name, price, stock)
+                    print(product.get_fulfillment_info())
                     break
                 elif product_info == "P":
                     weight = float(input("Enter weight (kg): "))
                     product = PhysicalProduct(weight, product_id, name, price, stock)
+                    print(product.get_fulfillment_info())
                     break
                 else:
                     print("Invalid Option! Select either D or P.")
