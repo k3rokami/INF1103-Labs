@@ -13,7 +13,7 @@ class Inventory():
     
     def add_product(self, product):
         for existing_product in self.__products:
-            if existing_product.get_product_id == product.get_product_id():
+            if existing_product.get_product_id() == product.get_product_id():
                 print("Product ID already exists.")
                 return
         self.__products.append(product)

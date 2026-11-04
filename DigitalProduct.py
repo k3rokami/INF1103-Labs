@@ -15,4 +15,12 @@ class DigitalProduct(Product):
         # print(f"Stock: {self.get_stock()}")
         # print(f"Download Size: {self.__download_size} mb")
         # print("="*50)
+    
+    def get_fulfillment_info(self):
+            return "This product is delivered digitally"
+
+    def get_download_size(self):
+        return self.__download_size
         
+# test=DigitalProduct(50,"P001","idk",120,30)
+# test.display_information()
