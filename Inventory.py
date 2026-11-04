@@ -33,11 +33,9 @@ class Inventory():
         
     def update_stock(self, product_id, new_stock):
         product = self.search_product(product_id)
-
         if product is None:
             print("Product not found.")
             return
-
         product.update_stock(new_stock)
         
     def display_all(self):
