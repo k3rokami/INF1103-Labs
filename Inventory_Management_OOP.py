@@ -95,9 +95,8 @@ def menu():
             name = input("Enter Product Name: ")
             price = float(input("Enter Price: "))
             stock = int(input("Enter Stock: "))
-            product_info = input("Is the product Digital or Physical?(D/P)")
             while True:
-                product_info = input("Is the product Digital or Physical? (D/P): ").strip().upper()
+                product_info = input("Is the product Digital or Physical? (D/P): ").strip()
                 if product_info == "D":
                     download_size = float(input("Enter download size (MB): "))
                     product = DigitalProduct(download_size, product_id, name, price, stock)
