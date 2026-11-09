@@ -1,12 +1,14 @@
 from Product import Product
+from Supplier import Supplier
 
 class DigitalProduct(Product):
-    def __init__(self, download_size, product_id, name, price, stock):
-        super().__init__(product_id, name, price, stock)
+    def __init__(self, download_size, product_id, name, price, stock, supplier):
+        super().__init__(product_id, name, price, stock, supplier)
         self.__download_size = download_size
         
     def display_information(self):
         super().display_information()
+        self.supplier.display_information()
         print(f"Download Size: {self.__download_size} mb")
         # print("="*50)
         # print(f"ID: {self.get_product_id()}")
@@ -21,6 +23,5 @@ class DigitalProduct(Product):
 
     def get_download_size(self):
         return self.__download_size
-        
-# test=DigitalProduct(50,"P001","idk",120,30)
-# test.display_information()
+    
+

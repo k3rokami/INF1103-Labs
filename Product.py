@@ -1,11 +1,13 @@
+from Supplier import Supplier
 from abc import ABC, abstractmethod
 
 class Product(ABC):
-    def __init__(self, product_id, name, price, stock):
+    def __init__(self, product_id:str, name:str, price:float, stock:int, supplier:Supplier):
         self.__product_id = product_id
         self.__name = name
         self.__price = price
         self.__stock = stock
+        self.supplier = supplier
     
     def get_product_id(self):
             return self.__product_id
