@@ -82,7 +82,7 @@ def menu():
     load_inventory(inventory)
 
     if not inventory.get_products():
-        supplier = Supplier("UNKNOWN", "Unknown Supplier", "")
+        supplier = Supplier("S001", "Razer Inc", "Razer@razer.com")
         product = PhysicalProduct(2.5, "P001", "Laptop", 1200.00, 15, supplier)
         inventory.add_product(product)
         product = PhysicalProduct(0.5, "P002", "Mouse", 25.50, 40, supplier)
