@@ -27,7 +27,7 @@ class Inventory():
                 return None
         print("Product not found")
         
-    def search_product(self, product_id):
+    def search_product(self, product_id:str):
         for product in self.__products:
             if product_id.lower() == product.get_product_id().lower():
                 return product
@@ -40,8 +40,8 @@ class Inventory():
         # print(f"Stock: {product['stock']}")
         # print("-" * 50)
         
-    def update_stock(self, product_id, new_stock):
-        product = self.search_product(product_id)
+    def update_stock(self, product_id:str, new_stock:int):
+        product: Product | None = self.search_product(product_id)
         if product is None:
             print("Product not found.")
             return

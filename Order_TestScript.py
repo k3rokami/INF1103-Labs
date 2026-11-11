@@ -1,12 +1,11 @@
-
 from Supplier import Supplier
 from PhysicalProduct import PhysicalProduct
 from Order import Order
 
 
 supplier1 = Supplier("S001", "ABC Supplies", "abc@email.com")
-product1 = PhysicalProduct("P001", "Keyboard", 50.0, 20, supplier1, 0.5)
-product2 = PhysicalProduct("P002", "Mouse", 25.0, 30, supplier1, 0.2)
+product1 = PhysicalProduct(0.5, "P001", "Keyboard", 50.0, 20, supplier1)
+product2 = PhysicalProduct(0.2, "P002", "Mouse", 25.0, 30, supplier1)
 
 order1 = Order("O001")
 order2 = Order("O002")
@@ -45,7 +44,7 @@ print("Same Product object:",
 print("Same OrderLine object:",
     order1.order_lines[0] is order2.order_lines[0])
 
-print("Remove orderline from order 1")
+print("\nRemove orderline from order 1")
 order1.remove_order_line("P001")
 
 for order_line in order1.order_lines:

@@ -18,6 +18,6 @@ class Order:
     
     def remove_order_line(self, product_id:str) -> None:
         for order_line in self.order_lines:
-            if product_id == order_line.product.get_product_id:
+            if product_id.lower() == order_line.product.get_product_id().lower():
                 self.order_lines.remove(order_line)
                 return
