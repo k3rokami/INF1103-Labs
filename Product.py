@@ -10,7 +10,7 @@ class Product(ABC):
         self.supplier = supplier
     
     def get_product_id(self):
-            return self.__product_id
+        return self.__product_id
         
     def get_name(self):
         return self.__name
@@ -21,7 +21,7 @@ class Product(ABC):
     def get_stock(self):
         return self.__stock
     
-    def update_stock(self, quantity):
+    def update_stock(self, quantity:int):
         self.__stock = quantity
         
     def display_information(self):

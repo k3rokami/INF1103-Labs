@@ -2,11 +2,11 @@ from Product import Product
 from Supplier import Supplier
 
 class DigitalProduct(Product):
-    def __init__(self, download_size, product_id, name, price, stock, supplier):
+    def __init__(self, download_size, product_id, name, price, stock, supplier) -> None:
         super().__init__(product_id, name, price, stock, supplier)
         self.__download_size = download_size
         
-    def display_information(self):
+    def display_information(self) -> None:
         super().display_information()
         self.supplier.display_information()
         print(f"Download Size: {self.__download_size} mb")

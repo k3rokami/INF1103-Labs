@@ -1,33 +1,33 @@
 from Product import Product
 
 class Inventory():
-    def __init__(self):
+    def __init__(self) -> None:
         self.__products: list[Product] = []
         
-    def get_products(self):
+    def get_products(self) -> list[Product]:
         return self.__products
     
-    def find_product(self, product_id:str):
+    def find_product(self, product_id:str) -> Product | None:
         for product in self.__products:
             if product_id.lower() == product.get_product_id().lower():
                 return product
         return None
     
-    def add_product(self, product: Product):
+    def add_product(self, product: Product) -> None:
         for existing_product in self.__products:
             if existing_product.get_product_id() == product.get_product_id():
                 print("Product ID already exists.")
                 return None
         self.__products.append(product)
 
-    def remove_product(self, product_id: str):
+    def remove_product(self, product_id: str) -> None:
         for product in self.__products:
             if product.get_product_id().lower() == product_id.lower():
                 self.__products.remove(product)
                 return None
         print("Product not found")
         
-    def search_product(self, product_id:str):
+    def search_product(self, product_id:str) -> Product | None:
         for product in self.__products:
             if product_id.lower() == product.get_product_id().lower():
                 return product

@@ -2,6 +2,7 @@ from Product import Product
 from Inventory import Inventory
 from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
+from Supplier import Supplier
 import json
 
 def load_inventory(inventory):
@@ -9,13 +10,23 @@ def load_inventory(inventory):
         with open("data/inventory.json", "r") as file:
             product_data = json.load(file)
         for item in product_data:
+            supplier_data = item.get("supplier")
+            if supplier_data is None:
+                supplier = Supplier("UNKNOWN", "Unknown Supplier", "")
+            else:
+                supplier = Supplier(
+                    supplier_data["supplier_id"],
+                    supplier_data["name"],
+                    supplier_data["contact_email"]
+                )
             if item["type"] == "physical":
                 product = PhysicalProduct(
                     item["weight"],
                     item["product_id"],
                     item["name"],
                     item["price"],
-                    item["stock"]
+                    item["stock"],
+                    supplier
                 )
             elif item["type"] == "digital":
                 product = DigitalProduct(
@@ -23,7 +34,8 @@ def load_inventory(inventory):
                     item["product_id"],
                     item["name"],
                     item["price"],
-                    item["stock"]
+                    item["stock"],
+                    supplier
                 )
             else:
                 print(f"Unknown product type: {item['type']}")
@@ -38,7 +50,12 @@ def product_to_dict(product):
         "product_id": product.get_product_id(),
         "name": product.get_name(),
         "price": product.get_price(),
-        "stock": product.get_stock()
+        "stock": product.get_stock(),
+        "supplier": {
+            "supplier_id": product.supplier.get_supplier_id(),
+            "name": product.supplier.get_name(),
+            "contact_email": product.supplier.get_contact_email()
+        }
     }
     if isinstance(product, PhysicalProduct):
         product_data["type"] = "physical"
@@ -65,11 +82,12 @@ def menu():
     load_inventory(inventory)
 
     if not inventory.get_products():
-        product = PhysicalProduct(2.5, "P001", "Laptop", 1200.00, 15)
+        supplier = Supplier("UNKNOWN", "Unknown Supplier", "")
+        product = PhysicalProduct(2.5, "P001", "Laptop", 1200.00, 15, supplier)
         inventory.add_product(product)
-        product = PhysicalProduct(0.5, "P002", "Mouse", 25.50, 40)
+        product = PhysicalProduct(0.5, "P002", "Mouse", 25.50, 40, supplier)
         inventory.add_product(product)
-        product = PhysicalProduct(1.3, "P003", "Keyboard", 45.00, 25)
+        product = PhysicalProduct(1.3, "P003", "Keyboard", 45.00, 25, supplier)
         inventory.add_product(product)
         
     while True:
@@ -95,16 +113,20 @@ def menu():
             name = input("Enter Product Name: ")
             price = float(input("Enter Price: "))
             stock = int(input("Enter Stock: "))
+            supplier_id = input("Enter Supplier ID: ")
+            supplier_name = input("Enter Supplier Name: ")
+            supplier_email = input("Enter Supplier Email: ")
+            supplier = Supplier(supplier_id, supplier_name, supplier_email)
             while True:
                 product_info = input("Is the product Digital or Physical? (D/P): ").strip()
                 if product_info == "D":
                     download_size = float(input("Enter download size (MB): "))
-                    product = DigitalProduct(download_size, product_id, name, price, stock)
+                    product = DigitalProduct(download_size, product_id, name, price, stock, supplier)
                     print(product.get_fulfillment_info())
                     break
                 elif product_info == "P":
                     weight = float(input("Enter weight (kg): "))
-                    product = PhysicalProduct(weight, product_id, name, price, stock)
+                    product = PhysicalProduct(weight, product_id, name, price, stock, supplier)
                     print(product.get_fulfillment_info())
                     break
                 else:
