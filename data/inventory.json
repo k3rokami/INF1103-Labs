@@ -50,5 +50,18 @@
         },
         "type": "physical",
         "weight": 0.56
+    },
+    {
+        "product_id": "P100",
+        "name": "Gaming Mouse",
+        "price": 59.99,
+        "stock": 30,
+        "supplier": {
+            "supplier_id": "S900",
+            "name": "Logitech",
+            "contact_email": "sales@logitech.com"
+        },
+        "type": "physical",
+        "weight": 0.4
     }
 ]

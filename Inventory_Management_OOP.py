@@ -4,7 +4,20 @@ from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
 from Supplier import Supplier
 from ProductFactory import ProductFactory
+from product_loader import get_positive_float
 import json
+
+
+def get_non_negative_int(prompt: str) -> int:
+    while True:
+        try:
+            value = int(input(prompt))
+            if value < 0:
+                print("Please enter zero or a positive whole number.")
+                continue
+            return value
+        except ValueError:
+            print("Please enter a valid whole number, e.g. 10")
 
 def load_inventory(inventory):
     try:
@@ -104,8 +117,8 @@ def menu():
             print("Add New Product")
             product_id = input("Enter Product ID: ")
             name = input("Enter Product Name: ")
-            price = float(input("Enter Price: "))
-            stock = int(input("Enter Stock: "))
+            price = get_positive_float("Enter Price: ")
+            stock = get_non_negative_int("Enter Stock: ")
             supplier_id = input("Enter Supplier ID: ")
             supplier_name = input("Enter Supplier Name: ")
             supplier_email = input("Enter Supplier Email: ")
@@ -113,12 +126,12 @@ def menu():
             while True:
                 product_info = input("Is the product Digital or Physical? (D/P): ").strip()
                 if product_info == "D":
-                    download_size = float(input("Enter download size (MB): "))
+                    download_size = get_positive_float("Enter download size (MB): ")
                     product = ProductFactory.create("digital", product_id, name, price, stock, supplier, download_size)
                     print(product.get_fulfillment_info())
                     break
                 elif product_info == "P":
-                    weight = float(input("Enter weight (kg): "))
+                    weight = get_positive_float("Enter weight (kg): ")
                     product = ProductFactory.create("physical", product_id, name, price, stock, supplier, weight)
                     print(product.get_fulfillment_info())
                     break
@@ -130,7 +143,7 @@ def menu():
         elif option == "3":
             print("Update Stock")
             product_id = input("Enter Product ID: ")
-            new_stock = int(input("Enter new stock quantity: "))
+            new_stock = get_non_negative_int("Enter new stock quantity: ")
             inventory.update_stock(product_id, new_stock)
             
         elif option == "4":
