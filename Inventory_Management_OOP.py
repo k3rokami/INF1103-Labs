@@ -3,6 +3,7 @@ from Inventory import Inventory
 from PhysicalProduct import PhysicalProduct
 from DigitalProduct import DigitalProduct
 from Supplier import Supplier
+from ProductFactory import ProductFactory
 import json
 
 def load_inventory(inventory):
@@ -20,26 +21,21 @@ def load_inventory(inventory):
                     supplier_data["contact_email"]
                 )
             if item["type"] == "physical":
-                product = PhysicalProduct(
-                    item["weight"],
-                    item["product_id"],
-                    item["name"],
-                    item["price"],
-                    item["stock"],
-                    supplier
-                )
+                extra = item["weight"]
             elif item["type"] == "digital":
-                product = DigitalProduct(
-                    item["download_size"],
-                    item["product_id"],
-                    item["name"],
-                    item["price"],
-                    item["stock"],
-                    supplier
-                )
+                extra = item["download_size"]
             else:
                 print(f"Unknown product type: {item['type']}")
                 continue
+            product = ProductFactory.create(
+                item["type"],
+                item["product_id"],
+                item["name"],
+                item["price"],
+                item["stock"],
+                supplier,
+                extra
+            )
             inventory.add_product(product)
 
     except FileNotFoundError:
@@ -83,12 +79,9 @@ def menu():
 
     if not inventory.get_products():
         supplier = Supplier("S001", "Razer Inc", "Razer@razer.com")
-        product = PhysicalProduct(2.5, "P001", "Laptop", 1200.00, 15, supplier)
-        inventory.add_product(product)
-        product = PhysicalProduct(0.5, "P002", "Mouse", 25.50, 40, supplier)
-        inventory.add_product(product)
-        product = PhysicalProduct(1.3, "P003", "Keyboard", 45.00, 25, supplier)
-        inventory.add_product(product)
+        inventory.add_product(ProductFactory.create("physical", "P001", "Laptop", 1200.00, 15, supplier, 2.5))
+        inventory.add_product(ProductFactory.create("physical", "P002", "Mouse", 25.50, 40, supplier, 0.5))
+        inventory.add_product(ProductFactory.create("physical", "P003", "Keyboard", 45.00, 25, supplier, 1.3))
         
     while True:
         print("\n===== Inventory Management System =====")
@@ -121,12 +114,12 @@ def menu():
                 product_info = input("Is the product Digital or Physical? (D/P): ").strip()
                 if product_info == "D":
                     download_size = float(input("Enter download size (MB): "))
-                    product = DigitalProduct(download_size, product_id, name, price, stock, supplier)
+                    product = ProductFactory.create("digital", product_id, name, price, stock, supplier, download_size)
                     print(product.get_fulfillment_info())
                     break
                 elif product_info == "P":
                     weight = float(input("Enter weight (kg): "))
-                    product = PhysicalProduct(weight, product_id, name, price, stock, supplier)
+                    product = ProductFactory.create("physical", product_id, name, price, stock, supplier, weight)
                     print(product.get_fulfillment_info())
                     break
                 else:
